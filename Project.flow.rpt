@@ -1,5 +1,5 @@
 Flow report for Project
-Wed Mar 09 14:54:48 2016
+Wed Mar 09 15:12:38 2016
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -38,24 +38,29 @@ agreement for further details.
 
 
 
-+---------------------------------------------------------------------------+
-; Flow Summary                                                              ;
-+-----------------------------+---------------------------------------------+
-; Flow Status                 ; Flow Failed - Wed Mar 09 14:54:48 2016      ;
-; Quartus Prime Version       ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
-; Revision Name               ; Project                                     ;
-; Top-level Entity Name       ; Project                                     ;
-; Family                      ; Cyclone V                                   ;
-; Device                      ; 5CEBA4F23C7                                 ;
-; Timing Models               ; Final                                       ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
-; Total registers             ; N/A until Partition Merge                   ;
-; Total pins                  ; N/A until Partition Merge                   ;
-; Total virtual pins          ; N/A until Partition Merge                   ;
-; Total block memory bits     ; N/A until Partition Merge                   ;
-; Total PLLs                  ; N/A until Partition Merge                   ;
-; Total DLLs                  ; N/A until Partition Merge                   ;
-+-----------------------------+---------------------------------------------+
++-------------------------------------------------------------------------------+
+; Flow Summary                                                                  ;
++---------------------------------+---------------------------------------------+
+; Flow Status                     ; Successful - Wed Mar 09 15:12:38 2016       ;
+; Quartus Prime Version           ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
+; Revision Name                   ; Project                                     ;
+; Top-level Entity Name           ; Project                                     ;
+; Family                          ; Cyclone V                                   ;
+; Device                          ; 5CEBA4F23C7                                 ;
+; Timing Models                   ; Final                                       ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 2309                                        ;
+; Total pins                      ; 68                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 524,288                                     ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 1                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
 
 
 +-----------------------------------------+
@@ -63,7 +68,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 03/09/2016 14:54:17 ;
+; Start date & time ; 03/09/2016 15:11:35 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Project             ;
 +-------------------+---------------------+
@@ -76,7 +81,7 @@ agreement for further details.
 +------------------------------------------------------+--------------------------------+---------------+-------------+------------+
 ; ALM_REGISTER_PACKING_EFFORT                          ; Low                            ; Medium        ; --          ; --         ;
 ; AUTO_DELAY_CHAINS_FOR_HIGH_FANOUT_INPUT_PINS         ; On                             ; Off           ; --          ; --         ;
-; COMPILER_SIGNATURE_ID                                ; 85812339951327.145755325706224 ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID                                ; 85812339951327.145755429504824 ; --            ; --          ; --         ;
 ; ENABLE_DRC_SETTINGS                                  ; On                             ; Off           ; --          ; --         ;
 ; FITTER_EFFORT                                        ; Standard Fit                   ; Auto Fit      ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP                               ; 85                             ; --            ; --          ; --         ;
@@ -114,8 +119,8 @@ agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:32     ; 1.0                     ; 834 MB              ; 00:01:20                           ;
-; Total                ; 00:00:32     ; --                      ; --                  ; 00:01:20                           ;
+; Analysis & Synthesis ; 00:01:01     ; 1.0                     ; 1030 MB             ; 00:01:40                           ;
+; Total                ; 00:01:01     ; --                      ; --                  ; 00:01:40                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

@@ -285,13 +285,13 @@ module Project(
 	       OP1_ADDI,OP1_ANDI,OP1_ORI,OP1_XORI:
 		        next_state=S_ALUI1;
 			 OP1_BEQ,OP1_BLT,OP1_BLE,OP1_BNE:
-			   next_state=S_ALUI1;
+			   next_state=S_BCOND1;
 			 OP1_JAL:
-			   next_state=S_ALUI1;	     
+			   next_state=S_JAL1;	     
 			 OP1_LW:
-			   next_state=S_ALUI1;
+			   next_state=S_LW1;
 			 OP1_SW:
-			   next_state=S_ALUI1;
+			   next_state=S_SW11;
 		  endcase
 			 
 						
