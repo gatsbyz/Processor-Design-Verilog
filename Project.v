@@ -291,7 +291,7 @@ module Project(
 			 OP1_LW:
 			   next_state=S_LW1;
 			 OP1_SW:
-			   next_state=S_SW11;
+			   next_state=S_SW1;
 		  endcase
 			 
 						
