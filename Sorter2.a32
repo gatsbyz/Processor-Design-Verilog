@@ -1,0 +1,155 @@
+; Addresses for I/O
+.NAME	HEX= 0xFFFFF000
+.NAME	LEDR=0xFFFFF020
+.NAME	KEY= 0xFFFFF080
+.NAME	SW=  0xFFFFF090
+; The stack is at the top of memory
+.NAME	StkTop=65536
+;  Number of sorting erations
+.NAME	ItNum=4
+; The array starts at data address 0x1000 and has 8192 elements (32kB)
+.NAME	Array=0x1000
+.NAME	ArrayBytes=0x8000
+
+	;  Now the actual code
+	.ORIG 0x100
+	; Put a zero in the Zero register
+	XOR		Zero,Zero,Zero
+	; Load the initial stack-top value into the SP
+	LW		SP,StackTopVal(Zero)
+	; Turn off LEDR
+	SW		Zero,LEDR(Zero)	; Turn off LEDR
+	
+	; Initialize the array with numbers 13, 13+11, 13+2*11, etc.
+	ADDI 	T0,Zero,Array		; T0 is CurPtr, set to start of array
+	LW		T1,ArrayBytesVal(Zero)
+	ADD		T1,T1,T0			; T1 is EndPtr, set to end of array
+	ADDI	S1,Zero,13			; S1 is the current value of the array element for initialization
+Init:
+	SW		S1,0(T0)			; Store value into an element
+	ADDI	S1,S1,11			; Add 13 to the value for next element
+	ADDI	T0,T0,4				; Move to next element
+	BNE		T0,T1,Init			; if(CurPtr!=EndPtr) goto Init;
+	
+	; Initialization done. Now check if the array is sorted in ascending order (it should be)
+	CALL	ChkAsc(Zero)
+	
+	; This is the main loop of the program, which repeats the same work ItNum times
+	; The iteration count is displayed on HEX
+	ADDI	S1,S0,ItNum		; We will keep the iteration count in S1
+	SW		S1,HEX(Zero)	; Display loop counter
+MainLoop:
+	; The work is to sort the array in descending and then in ascending order
+	ADDI	A0,Zero,Array
+	LW		A1,ArrayBytesVal(Zero)
+	ADD		A1,A1,A0
+	CALL	SortDesc(Zero)		; SortDesc(Array,ArrayBytes)
+	CALL	ChkDesc(Zero)		; ChkDesc()
+	ADDI	A0,Zero,Array
+	LW		A1,ArrayBytesVal(Zero)
+	ADD		A1,A1,A0
+	CALL	SortAsc(Zero)		; SortAsc(Array,ArrayBytes)
+	CALL 	ChkAsc(Zero)		; ChkAsc()
+	ADDI	S1,S1,-1			; Decrement iteration count
+	SW		S1,HEX(Zero)		; Display the new value on HEX
+	BNE		S1,Zero,MainLoop	; Back to main loop
+Done:
+	NOT		T0,Zero				; All-ones in T0
+	SW		T0,LEDR(Zero)		; Turn on LEDR
+	JMP Done(Zero)				; Loop forever
+
+	; Verifies that the array is sorted in ascending order
+ChkAsc:
+	ADDI	A0,Zero,Array
+	LW		A1,ArrayBytesVal(Zero)
+	ADD		A1,A1,A0
+	ADDI	A2,Zero,13
+LoopChkAsc:
+	LW		T0,0(A0)
+	BEQ		T0,A2,GoodChkAsc
+ErrChkAsc:
+	SW		T0,HEX(Zero)		; Put value we read on HEX
+	ADDI	T1,Zero,0x3E0
+	SW		T1,LEDR(Zero)		; Turn on upper half of LEDR
+	JMP		ErrChkAsc(Zero)		; Loop forever
+GoodChkAsc:
+	ADDI	A2,a2,11
+	ADDI	A0,A0,4
+	BNE		A0,A1,LoopChkAsc
+	RET
+
+	; Verifies that the array is sorted in descending order
+ChkDesc:
+	ADDI	A1,Zero,Array
+	LW		A0,ArrayBytesVal(Zero)
+	ADD		A0,A0,A1
+	ADDI	A2,S0,13
+LoopChkDesc:
+	SUBI	A0,A0,4
+	LW		T1,0(A0)
+	BEQ		A2,T1,GoodChkDesc
+ErrChkDesc:
+	SW		T1,HEX(Zero)		; Put value we read on HEX
+	ADDI	T0,Zero,0x01F
+	SW		T0,LEDR(Zero)		; Turn on lower half of LEDR
+	JMP		ErrChkDesc(Zero)	; Loop forever
+GoodChkDesc:
+	ADDI	A2,A2,11
+	BNE		A1,A0,LoopChkDesc
+	RET
+
+SortAsc:; SortAsc(beg,end)
+	; Sorts an array that starts at beg and ends at end
+	; Sorts in ascending order (low to high values)
+	; The sorting strategy is selection sort
+	; Outer loop (ptr "i" in A0) goes from start to end
+SortAscLoopI:
+	BEQ     A0,A1,SortAscEndI
+	LW		T0,0(A0)	; T0 will be equal to what should be in *i
+	; Inner loop (ptr "j" in A2) goes from i+4 to end
+    ADDI    A2,A0,4
+SortAscLoopJ:  
+    BEQ     A2,A1,SortAscEndJ
+	LW		T1,0(A2)	; T1=*j
+	BLE		T0,T1,SortAscNoSwap
+	SW		T0,0(A2)	; *j=T0 (*j becomes what was in *i)
+	ADD		T0,T1,S0	; T0=T1 (*i becomes what was in *j)
+SortAscNoSwap:
+	ADDI	A2,A2,4
+	JMP		SortAscLoopJ(Zero)
+SortAscEndJ:
+	SW		T0,0(A0)	; Save T0 back into *i
+	ADDI	A0,A0,4
+	JMP		SortAscLoopI(Zero)
+SortAscEndI:
+	RET
+	
+SortDesc:; SortDesc(beg,end)
+	; Sorts an array that starts at beg and ends at end
+	; Sorts in descending order (high to low values)
+	; The sorting strategy is immediate-swap selection sort
+	; Outer loop (ptr "i" in T0) goes from start to end
+	ADDI	T0,A0,0
+SortDescLoopI:
+	BEQ     T0,A1,SortDescEndI
+	; Inner loop (ptr "j" in T1) goes from i+4 to end
+    ADDI    T1,T0,4
+SortDescLoopJ:  
+    BEQ     T1,A1,SortDescEndJ
+	LW		A2,0(T0)	; A2=*i
+	LW		A3,0(T1)	; A3=*j
+	BGE		A2,A3,SortDescNoSwap
+	SW		A2,0(T1)	; *j=A2
+	SW		A3,0(T0)	; *i=A3
+SortDescNoSwap:
+	ADDI	T1,T1,4
+	JMP		SortDescLoopJ(Zero)
+SortDescEndJ:
+	ADDI	T0,T0,4
+	JMP		SortDescLoopI(Zero)
+SortDescEndI:
+	RET
+StackTopVal:
+.WORD StkTop
+ArrayBytesVal:
+.WORD ArrayBytes
