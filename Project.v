@@ -198,20 +198,20 @@ module Project(
 //		GP[5]=DrALU;
     if(ALUstate==1'b1) begin  //too much hardware?
 	   case(ALUfunc)
-		  OP2_F:		ALUout<=32'h00000000; //Is this False?
-		  OP2_T:		ALUout<=32'h00000001; //Is this True?
+		  //OP2_F:		ALUout<=32'h00000000;
+		  //OP2_T:		ALUout<=32'h00000001;
 		  OP2_EQ:	ALUout<=(A==B);
 		  OP2_LT:	ALUout<=(A<B);
-		  OP2_LTE:	ALUout<=(A<=B);
-		  OP2_EQZ:	ALUout<=(A==0);
-		  OP2_LTZ:	ALUout<=(A<0);
-		  OP2_LTEZ:	ALUout<=(A<=0);
-		  OP2_NE:	ALUout<=(A!=B); //Correct?
-		  OP2_GTE:	ALUout<=(A>=B);
-		  OP2_GT:	ALUout<=(A>B);
-		  OP2_NEZ:	ALUout<=(A!=0); //Correct?
-		  OP2_GTEZ:	ALUout<=(A>=0);
-		  OP2_GTZ:	ALUout<=(A>0);
+		  //OP2_LTE:	ALUout<=(A<=B);
+		  //OP2_EQZ:	ALUout<=(A==0);
+		  //OP2_LTZ:	ALUout<=(A<0);
+		  //OP2_LTEZ:	ALUout<=(A<=0);
+		  //OP2_NE:	ALUout<=(A!=B);
+		  //OP2_GTE:	ALUout<=(A>=B);
+		  //OP2_GT:	ALUout<=(A>B);
+		  //OP2_NEZ:	ALUout<=(A!=0);
+		  //OP2_GTEZ:	ALUout<=(A>=0);
+		  //OP2_GTZ:	ALUout<=(A>0);
 		  default:  ALUout<=(A+B);
 		endcase	
     end else begin
@@ -263,10 +263,10 @@ module Project(
 	 // Put parameters for the remaining state names above
 	 
   reg [(S_BITS-1):0] state,next_state;
-  reg LDMAR,DrOff,ShOff,DrMem;
+  reg LdMAR,DrOff,ShOff,DrMem;
   assign thebus=DrOff?{{14{imm[13]}},imm[13:0]}:BUSZ;
   assign thebus=ShOff?{{12{imm[13]}},imm[13:0],2'b0}:BUSZ;
-  always @(state or op1 or rs or rt or rd or op2 or op2_d or op_t or ALUout[0]) begin
+  always @(state or op1 or rs or rt or rd or op2 or op2_d or op2_t or ALUout[0]) begin
     {ALUstate,LdPC,DrPC,IncPC,LdMAR,WrMem,DrMem,LdIR,DrOff,ShOff, LdA, LdB,ALUfunc,DrALU,regno,DrReg,WrReg,next_state}=
     {1'b0    ,1'b0,1'b0, 1'b0, 1'b0, 1'b0, 1'b0,1'b0, 1'b0, 1'b0,1'b0,1'b0,   6'bX,1'b0,  6'bX, 1'b0, 1'b0,state+S_ONE};
     case(state)
@@ -309,7 +309,7 @@ module Project(
 	 S_SW3:	{WrMem,DrReg,regno,next_state}={1'b1,1'b1,rt,S_FETCH1};
 	 
 	 S_LW1:	{DrOff,LdB,next_state}={1'b1,1'b1,S_LW2};
-	 S_LW2:	{DrALU,ALUfunc,LdMAR,next_state}={1'b1,OP2_ALU_ADD,1'b1,S_LW3};
+	 S_LW2:	{DrALU,ALUfunc,LdMAR,next_state}={1'b1,OP2_ADD,1'b1,S_LW3};
 	 S_LW3:	{WrReg,regno,DrMem,next_state}={1'b1,rd,1'b1,S_FETCH1};
 	 
 	 //S_CMPR
@@ -321,7 +321,7 @@ module Project(
 	 
 	 S_JAL1:	{regno,WrReg,DrPC,next_state}={rd,1'b1,1'b1,S_JAL2};
 	 S_JAL2: {ShOff,LdB,next_state}={1'b1,1'b1,S_JAL3};
-	 S_JAL3:	{ALUfunc,DrALU,LdPC,next_state}={OP2_ALU_ADD,1'b1,1'b1,S_FETCH1};
+	 S_JAL3:	{ALUfunc,DrALU,LdPC,next_state}={OP2_ADD,1'b1,1'b1,S_FETCH1};
 	 //BCOND
 	 S_BCOND1: {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_BCOND2};
 	 S_BCOND2: begin
@@ -332,7 +332,7 @@ module Project(
 		    next_state<=S_FETCH1;
 		  end
 	 S_BCOND3: {ShOff,LdB,next_state}={1'b1,1'b1,S_BCOND4};
-	 S_BCOND4: {ALUfunc,DrALU,LdPC,next_state}={OP2_ALU_ADD,1'b1 ,1'b1,S_FETCH1}; 
+	 S_BCOND4: {ALUfunc,DrALU,LdPC,next_state}={OP2_ADD,1'b1 ,1'b1,S_FETCH1}; 
     default:  next_state=S_ERROR;
     endcase
   end
