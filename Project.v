@@ -52,11 +52,10 @@ module Project(
   parameter OP2_AND	=6'b100100;
   parameter OP2_OR	=6'b100101;
   parameter OP2_XOR	=6'b100110;
-  parameter OP2_NAND=6'b101100;
+  parameter OP2_NAND =6'b101100;
   parameter OP2_NOR	=6'b101101;
-  parameter OP2_NXOR=6'b101110;
+  parameter OP2_NXOR =6'b101110;
   
-  // CMP/CMPi/Bcond Opcodes
   parameter OP2_EQ	=6'b001000;
   parameter OP2_LT	=6'b001001;
   parameter OP2_LE	=6'b001010;
@@ -117,8 +116,7 @@ module Project(
   reg [(DBITS-1):0]  MAR;
   reg [(DBITS-1):0] dmem[(DMEMWORDS-1):0];
   reg WrMem;
-  //reg [(DBITS-1):0] memin;
-  wire MemEnable  =!(MAR[(DBITS-1):DMEMADDRBITS]); // If MAR upper bits are not all 0
+  wire MemEnable  =!(MAR[(DBITS-1):DMEMADDRBITS]);
   wire LEDREnable =(MAR==ADDRLEDR)&WrMem;
   wire HEXEnable  =(MAR==ADDRHEX)&WrMem;
   wire KEYState   =(MAR==ADDRKEY)&DrMem;
@@ -198,15 +196,15 @@ module Project(
 //		GP[5]=DrALU;
     if(ALUstate==1'b1) begin  //too much hardware?
 	   case(ALUfunc)
-		  //OP2_F:		ALUout<=32'h00000000;
-		  //OP2_T:		ALUout<=32'h00000001;
 		  OP2_EQ:	ALUout<=(A==B);
 		  OP2_LT:	ALUout<=(A<B);
-		  //OP2_LTE:	ALUout<=(A<=B);
+		  OP2_LE:	ALUout<=(A<=B);
+		  OP2_NE:	ALUout<=(A!=B);
+		  //OP2_F:		ALUout<=32'h00000000;
+		  //OP2_T:		ALUout<=32'h00000001;
 		  //OP2_EQZ:	ALUout<=(A==0);
 		  //OP2_LTZ:	ALUout<=(A<0);
 		  //OP2_LTEZ:	ALUout<=(A<=0);
-		  //OP2_NE:	ALUout<=(A!=B);
 		  //OP2_GTE:	ALUout<=(A>=B);
 		  //OP2_GT:	ALUout<=(A>B);
 		  //OP2_NEZ:	ALUout<=(A!=0);
@@ -276,9 +274,10 @@ module Project(
 		    OP1_ALUR: begin
 		      case(op2)
 		        OP2_SUB,OP2_NAND,OP2_NOR,OP2_NXOR,
-		        OP2_EQ,OP2_LT,OP2_LE,OP2_NE,
 		        OP2_ADD,OP2_AND,OP2_OR,OP2_XOR:
 			       next_state=S_ALUR1;
+			     OP2_EQ,OP2_LT,OP2_LE,OP2_NE:
+				    next_state=S_CMPR1;
 		        default: next_state=S_ERROR;
 		      endcase
 	       end
@@ -292,11 +291,11 @@ module Project(
 			   next_state=S_LW1;
 			 OP1_SW:
 			   next_state=S_SW1;
+			 default: next_state=S_ERROR;
 		  endcase
-			 
-						
+			 				
 	// Put the code for the rest of the "dispatch" here
-	  {regno,DrReg,LdA,LdB}={rs,1'b1,1'b1,1'b1};
+	   {regno,DrReg,LdA,LdB}={rs,1'b1,1'b1,1'b1};
       end
 	// Put the rest of the "microcode" here
     S_ALUR1:  {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_ALUR2};

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Project
-Wed Mar 09 15:12:38 2016
+Wed Mar 09 16:08:55 2016
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -61,13 +61,13 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed Mar 09 15:12:37 2016       ;
+; Analysis & Synthesis Status     ; Successful - Wed Mar 09 16:08:55 2016       ;
 ; Quartus Prime Version           ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
 ; Revision Name                   ; Project                                     ;
 ; Top-level Entity Name           ; Project                                     ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 2309                                        ;
+; Total registers                 ; 2310                                        ;
 ; Total pins                      ; 68                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 524,288                                     ;
@@ -217,16 +217,16 @@ agreement for further details.
 +---------------------------------------------+--------------------------------------------------------------------+
 ; Resource                                    ; Usage                                                              ;
 +---------------------------------------------+--------------------------------------------------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 1771                                                               ;
+; Estimate of Logic utilization (ALMs needed) ; 1808                                                               ;
 ;                                             ;                                                                    ;
-; Combinational ALUT usage for logic          ; 1531                                                               ;
-;     -- 7 input functions                    ; 33                                                                 ;
-;     -- 6 input functions                    ; 1040                                                               ;
-;     -- 5 input functions                    ; 88                                                                 ;
+; Combinational ALUT usage for logic          ; 1606                                                               ;
+;     -- 7 input functions                    ; 42                                                                 ;
+;     -- 6 input functions                    ; 1064                                                               ;
+;     -- 5 input functions                    ; 115                                                                ;
 ;     -- 4 input functions                    ; 118                                                                ;
-;     -- <=3 input functions                  ; 252                                                                ;
+;     -- <=3 input functions                  ; 267                                                                ;
 ;                                             ;                                                                    ;
-; Dedicated logic registers                   ; 2309                                                               ;
+; Dedicated logic registers                   ; 2310                                                               ;
 ;                                             ;                                                                    ;
 ; I/O pins                                    ; 68                                                                 ;
 ; Total MLAB memory bits                      ; 0                                                                  ;
@@ -238,9 +238,9 @@ agreement for further details.
 ;     -- PLLs                                 ; 1                                                                  ;
 ;                                             ;                                                                    ;
 ; Maximum fan-out node                        ; Pll:myPll|Pll_0002:pll_inst|altera_pll:altera_pll_i|outclk_wire[0] ;
-; Maximum fan-out                             ; 2439                                                               ;
-; Total fan-out                               ; 16958                                                              ;
-; Average fan-out                             ; 4.20                                                               ;
+; Maximum fan-out                             ; 2440                                                               ;
+; Total fan-out                               ; 17346                                                              ;
+; Average fan-out                             ; 4.21                                                               ;
 +---------------------------------------------+--------------------------------------------------------------------+
 
 
@@ -249,7 +249,7 @@ agreement for further details.
 +----------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node             ; LC Combinationals ; LC Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                              ; Library Name ;
 +----------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------+--------------+
-; |Project                               ; 1531 (1485)       ; 2309 (2306)  ; 524288            ; 0          ; 68   ; 0            ; |Project                                                                         ; work         ;
+; |Project                               ; 1606 (1560)       ; 2310 (2307)  ; 524288            ; 0          ; 68   ; 0            ; |Project                                                                         ; work         ;
 ;    |Pll:myPll|                         ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |Project|Pll:myPll                                                               ; Pll          ;
 ;       |Pll_0002:pll_inst|              ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |Project|Pll:myPll|Pll_0002:pll_inst                                             ; Pll          ;
 ;          |altera_pll:altera_pll_i|     ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |Project|Pll:myPll|Pll_0002:pll_inst|altera_pll:altera_pll_i                     ; work         ;
@@ -290,8 +290,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Register name                         ; Reason for Removal                     ;
 +---------------------------------------+----------------------------------------+
 ; IR[17]                                ; Stuck at GND due to stuck port data_in ;
-; state[3]                              ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 2 ;                                        ;
+; Total Number of Removed Registers = 1 ;                                        ;
 +---------------------------------------+----------------------------------------+
 
 
@@ -300,10 +299,10 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 2309  ;
-; Number of registers using Synchronous Clear  ; 0     ;
+; Total registers                              ; 2310  ;
+; Number of registers using Synchronous Clear  ; 1     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 131   ;
+; Number of registers using Asynchronous Clear ; 132   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 2257  ;
 ; Number of registers using Preset             ; 0     ;
@@ -316,50 +315,50 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
 ; IR[16]                                  ; 1       ;
-; IR[10]                                  ; 4       ;
-; IR[11]                                  ; 4       ;
-; IR[23]                                  ; 1       ;
+; IR[10]                                  ; 5       ;
+; IR[11]                                  ; 5       ;
+; IR[23]                                  ; 3       ;
 ; IR[14]                                  ; 1       ;
-; IR[9]                                   ; 4       ;
-; IR[21]                                  ; 1       ;
+; IR[9]                                   ; 5       ;
+; IR[21]                                  ; 3       ;
 ; IR[15]                                  ; 1       ;
 ; IR[18]                                  ; 1       ;
 ; IR[12]                                  ; 4       ;
-; IR[25]                                  ; 1       ;
+; IR[25]                                  ; 4       ;
 ; IR[19]                                  ; 1       ;
-; IR[0]                                   ; 7       ;
 ; IR[3]                                   ; 4       ;
-; B[3]                                    ; 5       ;
-; IR[2]                                   ; 4       ;
-; IR[5]                                   ; 4       ;
-; B[2]                                    ; 5       ;
-; B[0]                                    ; 5       ;
-; B[18]                                   ; 5       ;
-; B[19]                                   ; 5       ;
-; B[21]                                   ; 5       ;
-; B[26]                                   ; 5       ;
-; B[27]                                   ; 5       ;
-; B[28]                                   ; 5       ;
-; B[15]                                   ; 5       ;
-; B[16]                                   ; 5       ;
-; B[23]                                   ; 5       ;
-; B[25]                                   ; 5       ;
-; B[7]                                    ; 6       ;
-; B[10]                                   ; 5       ;
-; B[11]                                   ; 5       ;
-; B[9]                                    ; 5       ;
-; B[5]                                    ; 5       ;
-; B[12]                                   ; 6       ;
-; B[14]                                   ; 5       ;
-; B[30]                                   ; 5       ;
-; B[31]                                   ; 5       ;
+; IR[2]                                   ; 5       ;
+; IR[5]                                   ; 5       ;
+; IR[0]                                   ; 5       ;
+; B[3]                                    ; 7       ;
+; B[2]                                    ; 7       ;
+; B[0]                                    ; 6       ;
+; B[23]                                   ; 7       ;
+; B[25]                                   ; 7       ;
+; B[26]                                   ; 7       ;
+; B[27]                                   ; 7       ;
+; B[28]                                   ; 7       ;
+; B[21]                                   ; 7       ;
+; B[18]                                   ; 7       ;
+; B[19]                                   ; 7       ;
+; B[16]                                   ; 7       ;
+; B[14]                                   ; 7       ;
+; B[15]                                   ; 7       ;
+; B[12]                                   ; 7       ;
+; B[10]                                   ; 6       ;
+; B[11]                                   ; 7       ;
+; B[5]                                    ; 6       ;
+; B[9]                                    ; 7       ;
+; B[7]                                    ; 7       ;
+; B[31]                                   ; 7       ;
+; B[30]                                   ; 7       ;
 ; IR[7]                                   ; 2       ;
 ; PC[8]                                   ; 93      ;
-; IR[30]                                  ; 4       ;
-; IR[26]                                  ; 4       ;
-; IR[31]                                  ; 4       ;
-; IR[27]                                  ; 4       ;
-; IR[28]                                  ; 4       ;
+; IR[31]                                  ; 6       ;
+; IR[28]                                  ; 5       ;
+; IR[26]                                  ; 7       ;
+; IR[27]                                  ; 9       ;
+; IR[30]                                  ; 7       ;
 ; Total number of inverted registers = 45 ;         ;
 +-----------------------------------------+---------+
 
@@ -439,15 +438,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 ; 3:1                ; 29 bits   ; 58 LEs        ; 0 LEs                ; 58 LEs                 ; Yes        ; |Project|PC[3]             ;
-; 95:1               ; 2 bits    ; 126 LEs       ; 32 LEs               ; 94 LEs                 ; Yes        ; |Project|state[4]          ;
+; 95:1               ; 2 bits    ; 126 LEs       ; 50 LEs               ; 76 LEs                 ; Yes        ; |Project|state[4]          ;
 ; 16:1               ; 5 bits    ; 50 LEs        ; 40 LEs               ; 10 LEs                 ; No         ; |Project|SevenSeg:s0|OUT   ;
 ; 16:1               ; 5 bits    ; 50 LEs        ; 40 LEs               ; 10 LEs                 ; No         ; |Project|SevenSeg:s1|OUT   ;
 ; 16:1               ; 5 bits    ; 50 LEs        ; 40 LEs               ; 10 LEs                 ; No         ; |Project|SevenSeg:s2|OUT   ;
 ; 16:1               ; 5 bits    ; 50 LEs        ; 40 LEs               ; 10 LEs                 ; No         ; |Project|SevenSeg:s3|OUT   ;
 ; 16:1               ; 5 bits    ; 50 LEs        ; 40 LEs               ; 10 LEs                 ; No         ; |Project|SevenSeg:s4|OUT   ;
 ; 16:1               ; 5 bits    ; 50 LEs        ; 40 LEs               ; 10 LEs                 ; No         ; |Project|SevenSeg:s5|OUT   ;
-; 9:1                ; 6 bits    ; 36 LEs        ; 24 LEs               ; 12 LEs                 ; No         ; |Project|Selector37        ;
-; 11:1               ; 5 bits    ; 35 LEs        ; 10 LEs               ; 25 LEs                 ; No         ; |Project|Selector43        ;
+; 9:1                ; 6 bits    ; 36 LEs        ; 24 LEs               ; 12 LEs                 ; No         ; |Project|Selector36        ;
+; 11:1               ; 5 bits    ; 35 LEs        ; 10 LEs               ; 25 LEs                 ; No         ; |Project|Selector42        ;
 ; 74:1               ; 4 bits    ; 196 LEs       ; 44 LEs               ; 152 LEs                ; No         ; |Project|thebus[28]        ;
 ; 74:1               ; 13 bits   ; 637 LEs       ; 130 LEs              ; 507 LEs                ; No         ; |Project|thebus[22]        ;
 ; 74:1               ; 5 bits    ; 245 LEs       ; 55 LEs               ; 190 LEs                ; No         ; |Project|thebus[13]        ;
@@ -932,32 +931,33 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 2309                        ;
+; arriav_ff             ; 2310                        ;
 ;     CLR               ; 4                           ;
+;     CLR SCLR          ; 1                           ;
 ;     ENA               ; 2130                        ;
 ;     ENA CLR           ; 127                         ;
 ;     plain             ; 48                          ;
-; arriav_lcell_comb     ; 1537                        ;
+; arriav_lcell_comb     ; 1612                        ;
 ;     arith             ; 62                          ;
 ;         1 data inputs ; 30                          ;
 ;         2 data inputs ; 32                          ;
-;     extend            ; 33                          ;
-;         7 data inputs ; 33                          ;
-;     normal            ; 1410                        ;
+;     extend            ; 42                          ;
+;         7 data inputs ; 42                          ;
+;     normal            ; 1476                        ;
 ;         1 data inputs ; 29                          ;
-;         2 data inputs ; 57                          ;
-;         3 data inputs ; 78                          ;
+;         2 data inputs ; 59                          ;
+;         3 data inputs ; 91                          ;
 ;         4 data inputs ; 118                         ;
-;         5 data inputs ; 88                          ;
-;         6 data inputs ; 1040                        ;
+;         5 data inputs ; 115                         ;
+;         6 data inputs ; 1064                        ;
 ;     shared            ; 32                          ;
 ;         2 data inputs ; 32                          ;
 ; boundary_port         ; 68                          ;
 ; generic_pll           ; 1                           ;
 ; stratixv_ram_block    ; 64                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 8.10                        ;
-; Average LUT depth     ; 5.13                        ;
+; Max LUT depth         ; 9.00                        ;
+; Average LUT depth     ; 5.34                        ;
 +-----------------------+-----------------------------+
 
 
@@ -966,7 +966,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:29     ;
+; Top            ; 00:00:26     ;
 +----------------+--------------+
 
 
@@ -976,7 +976,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
-    Info: Processing started: Wed Mar 09 15:11:34 2016
+    Info: Processing started: Wed Mar 09 16:07:55 2016
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Project -c Project
 Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
     Info (16304): Mode behavior is affected by advanced setting Physical Synthesis Effort Level (default for this mode is Normal)
@@ -987,13 +987,12 @@ Info (12021): Found 1 design units, including 1 entities, in source file pll/pll
     Info (12023): Found entity 1: Pll_0002 File: C:/Users/Yuna/Downloads/Project2_restored/Pll/Pll_0002.v Line: 2
 Info (12021): Found 2 design units, including 2 entities, in source file project.v
     Info (12023): Found entity 1: Project File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 1
-    Info (12023): Found entity 2: SXT File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 346
+    Info (12023): Found entity 2: SXT File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 345
 Info (12021): Found 1 design units, including 1 entities, in source file sevenseg.v
     Info (12023): Found entity 1: SevenSeg File: C:/Users/Yuna/Downloads/Project2_restored/SevenSeg.v Line: 1
 Info (12127): Elaborating entity "Project" for the top level hierarchy
-Warning (10858): Verilog HDL warning at Project.v(94): object imem used but never assigned File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 94
-Warning (10270): Verilog HDL Case Statement warning at Project.v(275): incomplete case statement has no default case item File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 275
-Info (12128): Elaborating entity "Pll" for hierarchy "Pll:myPll" File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 74
+Warning (10858): Verilog HDL warning at Project.v(93): object imem used but never assigned File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 93
+Info (12128): Elaborating entity "Pll" for hierarchy "Pll:myPll" File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 73
 Info (12128): Elaborating entity "Pll_0002" for hierarchy "Pll:myPll|Pll_0002:pll_inst" File: C:/Users/Yuna/Downloads/Project2_restored/Pll.v Line: 20
 Info (12128): Elaborating entity "altera_pll" for hierarchy "Pll:myPll|Pll_0002:pll_inst|altera_pll:altera_pll_i" File: C:/Users/Yuna/Downloads/Project2_restored/Pll/Pll_0002.v Line: 85
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "wire_to_nowhere_64" into its bus
@@ -1059,44 +1058,44 @@ Info (12133): Instantiated megafunction "Pll:myPll|Pll_0002:pll_inst|altera_pll:
     Info (12134): Parameter "duty_cycle17" = "50"
     Info (12134): Parameter "pll_type" = "General"
     Info (12134): Parameter "pll_subtype" = "General"
-Info (12128): Elaborating entity "SevenSeg" for hierarchy "SevenSeg:s0" File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 135
+Info (12128): Elaborating entity "SevenSeg" for hierarchy "SevenSeg:s0" File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 133
 Warning (276020): Inferred RAM node "dmem_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
 Info (276014): Found 2 instances of uninferred RAM logic
-    Info (276007): RAM logic "imem" is uninferred due to asynchronous read logic File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 94
-    Info (276007): RAM logic "regs" is uninferred due to asynchronous read logic File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 165
+    Info (276007): RAM logic "imem" is uninferred due to asynchronous read logic File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 93
+    Info (276007): RAM logic "regs" is uninferred due to asynchronous read logic File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 163
 Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
-    Warning (13048): Converted tri-state node "thebus[31]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[30]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[29]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[28]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[27]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[26]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[25]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[24]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[23]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[22]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[21]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[20]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[19]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[18]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[17]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[16]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[15]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[14]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[13]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[12]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[11]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[10]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[9]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[8]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[7]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[6]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[5]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[4]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[3]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[2]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 182
-    Warning (13048): Converted tri-state node "thebus[1]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 86
-    Warning (13048): Converted tri-state node "thebus[0]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 86
+    Warning (13048): Converted tri-state node "thebus[31]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[30]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[29]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[28]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[27]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[26]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[25]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[24]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[23]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[22]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[21]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[20]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[19]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[18]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[17]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[16]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[15]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[14]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[13]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[12]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[11]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[10]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[9]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[8]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[7]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[6]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[5]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[4]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[3]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[2]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 180
+    Warning (13048): Converted tri-state node "thebus[1]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 85
+    Warning (13048): Converted tri-state node "thebus[0]" into a selector File: C:/Users/Yuna/Downloads/Project2_restored/Project.v Line: 85
 Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "dmem_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
@@ -1142,17 +1141,17 @@ Info (286030): Timing-Driven Synthesis is running
 Info (144001): Generated suppressed messages file C:/Users/Yuna/Downloads/Project2_restored/Project.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 5 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 3886 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 3961 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 16 input pins
     Info (21059): Implemented 52 output pins
-    Info (21061): Implemented 3753 logic cells
+    Info (21061): Implemented 3828 logic cells
     Info (21064): Implemented 64 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 37 warnings
-    Info: Peak virtual memory: 1030 megabytes
-    Info: Processing ended: Wed Mar 09 15:12:38 2016
-    Info: Elapsed time: 00:01:04
-    Info: Total CPU time (on all processors): 00:01:43
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 36 warnings
+    Info: Peak virtual memory: 1035 megabytes
+    Info: Processing ended: Wed Mar 09 16:08:55 2016
+    Info: Elapsed time: 00:01:00
+    Info: Total CPU time (on all processors): 00:01:42
 
 
 +------------------------------------------+
