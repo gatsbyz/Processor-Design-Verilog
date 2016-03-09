@@ -300,12 +300,12 @@ module Project(
       end
 	// Put the rest of the "microcode" here
     S_ALUR1:  {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_ALUR2};
-	 S_ALUR2:  {ALUfunc,DrALU,regno,WrReg,next_state}={op2_i,1'b1,rd,1'b1,S_FETCH1};
+	 S_ALUR2:  {ALUfunc,DrALU,regno,WrReg,next_state}={op2,1'b1,rd,1'b1,S_FETCH1};
 	 S_ALUI1: {DrOff,LdB,next_state}={1'b1,1'b1,S_ALUI2};
 	 S_ALUI2: {DrALU,ALUfunc,regno,WrReg,next_state}={1'b1,op2_t,rd,1'b1,S_FETCH1};
 	 
 	 S_SW1:	{DrOff,LdB,next_state}={1'b1,1'b1,S_SW2};
-	 S_SW2:	{DrALU,ALUfunc,LdMAR,next_state}={1'b1,OP2_ALU_ADD,1'b1,S_SW3};
+	 S_SW2:	{DrALU,ALUfunc,LdMAR,next_state}={1'b1,OP2_ADD,1'b1,S_SW3};
 	 S_SW3:	{WrMem,DrReg,regno,next_state}={1'b1,1'b1,rt,S_FETCH1};
 	 
 	 S_LW1:	{DrOff,LdB,next_state}={1'b1,1'b1,S_LW2};
@@ -314,7 +314,7 @@ module Project(
 	 
 	 //S_CMPR
 	 S_CMPR1:  {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_CMPR2};
-	 S_CMPR2:  {ALUstate,ALUfunc,DrALU,regno,WrReg,next_state}={1'b1,op2_i,1'b1,rd,1'b1,S_FETCH1};
+	 S_CMPR2:  {ALUstate,ALUfunc,DrALU,regno,WrReg,next_state}={1'b1,op2,1'b1,rd,1'b1,S_FETCH1};
 	 //S_CMPI
 	 S_CMPI1:  {DrOff,LdB,next_state}={1'b1,1'b1,S_CMPI2};
 	 S_CMPI2:  {ALUstate,ALUfunc,DrALU,regno,WrReg,next_state}={1'b1,op2_t,1'b1,rd,1'b1,S_FETCH1};
