@@ -54,7 +54,7 @@ module Project(
   parameter OP2_XOR	=6'b100110;
   parameter OP2_NAND =6'b101100;
   parameter OP2_NOR	=6'b101101;
-  parameter OP2_NXOR =6'b101110;
+  parameter OP2_NXOR  =6'b101110;
   
   parameter OP2_EQ	=6'b001000;
   parameter OP2_LT	=6'b001001;
@@ -108,7 +108,7 @@ module Project(
   wire [5:0] rs    =IR[19:14];
   wire [5:0] rt    =IR[13:8];
   wire [13:0]imm   =IR[13:0];
-  wire [5:0] op2 =IR[5:0];
+  wire [5:0] op2 =IR[5:0];  // secondary opcode itself!
   wire [5:0] op2_d =rd;
   wire [5:0] op2_t =rt; 
   
@@ -123,19 +123,16 @@ module Project(
   wire SWITCHState=(MAR==ADDRSW)&DrMem;
 
   reg [9:0] GATS;
-  reg [7:0] GREEN;
-  reg [3:0] DIG0,DIG1,DIG2,DIG3,DIG4,DIG5;
-  reg [1:0] test;
+  reg [3:0] DISP0,DISP1,DISP2,DISP3,DISP4,DISP5;
   assign LEDR[9:0]=GATS[9:0];
-  //assign LEDG[7:0]=GREEN[7:0];
 
   //SevenSeg
-  SevenSeg s0(.IN(DIG0), .OUT(HEX0));
-  SevenSeg s1(.IN(DIG1), .OUT(HEX1));
-  SevenSeg s2(.IN(DIG2), .OUT(HEX2));
-  SevenSeg s3(.IN(DIG3), .OUT(HEX3));
-  SevenSeg s4(.IN(DIG4), .OUT(HEX4));
-  SevenSeg s5(.IN(DIG5), .OUT(HEX5));
+  SevenSeg s0(.IN(DISP0), .OUT(HEX0));
+  SevenSeg s1(.IN(DISP1), .OUT(HEX1));
+  SevenSeg s2(.IN(DISP2), .OUT(HEX2));
+  SevenSeg s3(.IN(DISP3), .OUT(HEX3));
+  SevenSeg s4(.IN(DISP4), .OUT(HEX4));
+  SevenSeg s5(.IN(DISP5), .OUT(HEX5));
 
   wire MemWE=WrMem&MemEnable&!reset;
 
@@ -146,7 +143,7 @@ module Project(
     if(LEDREnable)
 	   GATS<=thebus[9:0];
     else if(HEXEnable)
-	  {DIG5,DIG4,DIG3,DIG2,DIG1,DIG0}={thebus[23:0]};	
+	  {DISP5,DISP4,DISP3,DISP2,DISP1,DISP0}={thebus[23:0]};
     else if(MemWE)
 	   dmem[MAR[(DMEMADDRBITS-1):DMEMWORDBITS]]<=thebus;
   end
@@ -191,38 +188,25 @@ module Project(
   //reg [(DBITS-1):0] ALUout;
   reg ALUstate;
   always @(ALUfunc or ALUstate or A or B or DrALU) begin
-//		GP[3:0]=ALUfunc[3:0];
-//		GP[4]=ALUstate;
-//		GP[5]=DrALU;
     if(ALUstate==1'b1) begin  //too much hardware?
 	   case(ALUfunc)
-		  OP2_EQ:	ALUout<=(A==B);
+		  OP2_EQ:	ALUout<=(A==B);  // comp
 		  OP2_LT:	ALUout<=(A<B);
 		  OP2_LE:	ALUout<=(A<=B);
 		  OP2_NE:	ALUout<=(A!=B);
-		  //OP2_F:		ALUout<=32'h00000000;
-		  //OP2_T:		ALUout<=32'h00000001;
-		  //OP2_EQZ:	ALUout<=(A==0);
-		  //OP2_LTZ:	ALUout<=(A<0);
-		  //OP2_LTEZ:	ALUout<=(A<=0);
-		  //OP2_GTE:	ALUout<=(A>=B);
-		  //OP2_GT:	ALUout<=(A>B);
-		  //OP2_NEZ:	ALUout<=(A!=0);
-		  //OP2_GTEZ:	ALUout<=(A>=0);
-		  //OP2_GTZ:	ALUout<=(A>0);
 		  default:  ALUout<=(A+B);
 		endcase	
     end else begin
 	   case(ALUfunc)
-		  OP2_ADD:	ALUout<=(A+B);
+		  OP1_ADDI,OP1_LW,OP1_SW,OP1_JAL,OP2_ADD:	ALUout<=(A+B);
 		  OP2_SUB:	ALUout<=(A-B);
-		  OP2_AND:	ALUout<=(A&B);
-		  OP2_OR:	ALUout<=(A|B);
-		  OP2_XOR:	ALUout<=(A^B);
+		  OP1_ANDI,OP2_AND:	ALUout<=(A&B);
+		  OP1_ORI,OP2_OR:	ALUout<=(A|B);
+		  OP1_XORI,OP2_XOR:	ALUout<=(A^B);
 		  OP2_NAND: ALUout<=~(A&B);
 		  OP2_NOR:	ALUout<=~(A|B);
 		  OP2_NXOR: ALUout<=~(A^B);
-		  default:  ALUout<=(A+B);
+		  default:  ALUout<={DBITS{1'bX}};
 		endcase
 	 end
   end
@@ -233,30 +217,30 @@ module Project(
   parameter [(S_BITS-1):0]
     S_ZERO  ={(S_BITS){1'b0}},
     S_ONE   ={{(S_BITS-1){1'b0}},1'b1},
-    S_FETCH1=S_ZERO,				// 00
-	 S_FETCH2=S_FETCH1+S_ONE,  // 01
-    S_ALUR1 =S_FETCH2+S_ONE,	// 02
-    S_ALUR2 =S_ALUR1 +S_ONE,	// 03
-    S_ALUI1 =S_ALUR2 +S_ONE,	// 04
-    S_ALUI2 =S_ALUI1 +S_ONE,	// 05
-    S_CMPR1 =S_ALUI2 +S_ONE,	// 06
-    S_CMPR2 =S_CMPR1 +S_ONE,	// 07
-    S_CMPI1 =S_CMPR2 +S_ONE,	// 08
-    S_CMPI2 =S_CMPI1 +S_ONE,	// 09
-	 S_BCOND1=S_CMPI2 +S_ONE,  // 0A
-	 S_BCOND2=S_BCOND1+S_ONE,  // 0B
-	 S_BCOND3=S_BCOND2+S_ONE,  // 0C
-	 S_BCOND4=S_BCOND3+S_ONE,  // 0D
-    S_LW1   =S_BCOND4+S_ONE,	//	0E
-    S_LW2   =S_LW1   +S_ONE,	//	0F
-    S_LW3   =S_LW2   +S_ONE,	//	10
-    S_SW1   =S_LW3   +S_ONE,	//	11
-    S_SW2   =S_SW1   +S_ONE,	//	12
-    S_SW3   =S_SW2   +S_ONE,	//	13
-    S_JAL1  =S_SW3   +S_ONE,	//	14
-    S_JAL2  =S_JAL1  +S_ONE,	//	15
-    S_JAL3  =S_JAL2  +S_ONE,	//	16
-    S_ERROR =S_JAL3  +S_ONE;	//	17
+    S_FETCH1=S_ZERO,			
+	 S_FETCH2=S_FETCH1+S_ONE, 
+    S_ALUR1 =S_FETCH2+S_ONE,
+    S_ALUR2 =S_ALUR1 +S_ONE,
+    S_ALUI1 =S_ALUR2 +S_ONE,
+    S_ALUI2 =S_ALUI1 +S_ONE,
+    S_CMPR1 =S_ALUI2 +S_ONE,
+    S_CMPR2 =S_CMPR1 +S_ONE,
+    S_CMPI1 =S_CMPR2 +S_ONE,
+    S_CMPI2 =S_CMPI1 +S_ONE,
+	 S_BRNCH1=S_CMPI2 +S_ONE, 
+	 S_BRNCH2=S_BRNCH1+S_ONE, 
+	 S_BRNCH3=S_BRNCH2+S_ONE, 
+	 S_BRNCH4=S_BRNCH3+S_ONE, 
+    S_LW1   =S_BRNCH4+S_ONE,
+    S_LW2   =S_LW1   +S_ONE,
+    S_LW3   =S_LW2   +S_ONE,
+    S_SW1   =S_LW3   +S_ONE,
+    S_SW2   =S_SW1   +S_ONE,
+    S_SW3   =S_SW2   +S_ONE,
+    S_JAL1  =S_SW3   +S_ONE,
+    S_JAL2  =S_JAL1  +S_ONE,
+    S_JAL3  =S_JAL2  +S_ONE,
+    S_ERROR =S_JAL3  +S_ONE;
 
 	 // Put parameters for the remaining state names above
 	 
@@ -284,7 +268,7 @@ module Project(
 	       OP1_ADDI,OP1_ANDI,OP1_ORI,OP1_XORI:
 		        next_state=S_ALUI1;
 			 OP1_BEQ,OP1_BLT,OP1_BLE,OP1_BNE:
-			   next_state=S_BCOND1;
+			   next_state=S_BRNCH1;
 			 OP1_JAL:
 			   next_state=S_JAL1;	     
 			 OP1_LW:
@@ -306,32 +290,29 @@ module Project(
 	 S_SW1:	{DrOff,LdB,next_state}={1'b1,1'b1,S_SW2};
 	 S_SW2:	{DrALU,ALUfunc,LdMAR,next_state}={1'b1,OP2_ADD,1'b1,S_SW3};
 	 S_SW3:	{WrMem,DrReg,regno,next_state}={1'b1,1'b1,rt,S_FETCH1};
-	 
 	 S_LW1:	{DrOff,LdB,next_state}={1'b1,1'b1,S_LW2};
 	 S_LW2:	{DrALU,ALUfunc,LdMAR,next_state}={1'b1,OP2_ADD,1'b1,S_LW3};
 	 S_LW3:	{WrReg,regno,DrMem,next_state}={1'b1,rd,1'b1,S_FETCH1};
-	 
 	 //S_CMPR
 	 S_CMPR1:  {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_CMPR2};
 	 S_CMPR2:  {ALUstate,ALUfunc,DrALU,regno,WrReg,next_state}={1'b1,op2,1'b1,rd,1'b1,S_FETCH1};
 	 //S_CMPI
 	 S_CMPI1:  {DrOff,LdB,next_state}={1'b1,1'b1,S_CMPI2};
 	 S_CMPI2:  {ALUstate,ALUfunc,DrALU,regno,WrReg,next_state}={1'b1,op2_t,1'b1,rd,1'b1,S_FETCH1};
-	 
 	 S_JAL1:	{regno,WrReg,DrPC,next_state}={rd,1'b1,1'b1,S_JAL2};
 	 S_JAL2: {ShOff,LdB,next_state}={1'b1,1'b1,S_JAL3};
 	 S_JAL3:	{ALUfunc,DrALU,LdPC,next_state}={OP2_ADD,1'b1,1'b1,S_FETCH1};
-	 //BCOND
-	 S_BCOND1: {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_BCOND2};
-	 S_BCOND2: begin
+	 //BRNCH
+	 S_BRNCH1: {regno,DrReg,LdB,next_state}={rt,1'b1,1'b1,S_BRNCH2};
+	 S_BRNCH2: begin
 	   {ALUstate,ALUfunc,DrPC,LdA}={1'b1,op2_d,1'b1,1'b1};
 		  if(ALUout[0]==1'b1)
-		    next_state<=S_BCOND3;
+		    next_state<=S_BRNCH3;
 		  else 
 		    next_state<=S_FETCH1;
 		  end
-	 S_BCOND3: {ShOff,LdB,next_state}={1'b1,1'b1,S_BCOND4};
-	 S_BCOND4: {ALUfunc,DrALU,LdPC,next_state}={OP2_ADD,1'b1 ,1'b1,S_FETCH1}; 
+	 S_BRNCH3: {ShOff,LdB,next_state}={1'b1,1'b1,S_BRNCH4};
+	 S_BRNCH4: {ALUfunc,DrALU,LdPC,next_state}={OP2_ADD,1'b1 ,1'b1,S_FETCH1}; 
     default:  next_state=S_ERROR;
     endcase
   end
