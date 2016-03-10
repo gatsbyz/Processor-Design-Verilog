@@ -1,5 +1,5 @@
 Flow report for Project
-Wed Mar 09 16:08:55 2016
+Wed Mar 09 16:19:18 2016
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -41,25 +41,25 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Wed Mar 09 16:08:55 2016       ;
+; Flow Status                     ; Analyzed - Wed Mar 09 16:19:18 2016         ;
 ; Quartus Prime Version           ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
 ; Revision Name                   ; Project                                     ;
 ; Top-level Entity Name           ; Project                                     ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CEBA4F23C7                                 ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 2310                                        ;
-; Total pins                      ; 68                                          ;
+; Logic utilization (in ALMs)     ; 1,445 / 18,480 ( 8 % )                      ;
+; Total registers                 ; 2392                                        ;
+; Total pins                      ; 68 / 224 ( 30 % )                           ;
 ; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 524,288                                     ;
-; Total DSP Blocks                ; 0                                           ;
+; Total block memory bits         ; 524,288 / 3,153,920 ( 17 % )                ;
+; Total DSP Blocks                ; 0 / 66 ( 0 % )                              ;
 ; Total HSSI RX PCSs              ; 0                                           ;
 ; Total HSSI PMA RX Deserializers ; 0                                           ;
 ; Total HSSI TX PCSs              ; 0                                           ;
 ; Total HSSI PMA TX Serializers   ; 0                                           ;
-; Total PLLs                      ; 1                                           ;
-; Total DLLs                      ; 0                                           ;
+; Total PLLs                      ; 1 / 4 ( 25 % )                              ;
+; Total DLLs                      ; 0 / 4 ( 0 % )                               ;
 +---------------------------------+---------------------------------------------+
 
 
@@ -114,29 +114,41 @@ agreement for further details.
 +------------------------------------------------------+--------------------------------+---------------+-------------+------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                        ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:57     ; 1.0                     ; 1035 MB             ; 00:01:39                           ;
-; Total                ; 00:00:57     ; --                      ; --                  ; 00:01:39                           ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:00:57     ; 1.0                     ; 1035 MB             ; 00:01:39                           ;
+; Fitter                    ; 00:07:15     ; 1.2                     ; 2093 MB             ; 00:11:15                           ;
+; Assembler                 ; 00:00:25     ; 1.0                     ; 906 MB              ; 00:00:25                           ;
+; TimeQuest Timing Analyzer ; 00:01:03     ; 1.6                     ; 1222 MB             ; 00:01:34                           ;
+; Design Assistant          ; 00:00:10     ; 1.0                     ; 838 MB              ; 00:00:10                           ;
+; Total                     ; 00:09:50     ; --                      ; --                  ; 00:15:03                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                    ;
-+----------------------+-------------------+-----------+------------+----------------+
-; Module Name          ; Machine Hostname  ; OS Name   ; OS Version ; Processor type ;
-+----------------------+-------------------+-----------+------------+----------------+
-; Analysis & Synthesis ; Jesse-Surface-Pro ; Windows 8 ; 6.2        ; x86_64         ;
-+----------------------+-------------------+-----------+------------+----------------+
++-----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                         ;
++---------------------------+-------------------+-----------+------------+----------------+
+; Module Name               ; Machine Hostname  ; OS Name   ; OS Version ; Processor type ;
++---------------------------+-------------------+-----------+------------+----------------+
+; Analysis & Synthesis      ; Jesse-Surface-Pro ; Windows 8 ; 6.2        ; x86_64         ;
+; Fitter                    ; Jesse-Surface-Pro ; Windows 8 ; 6.2        ; x86_64         ;
+; Assembler                 ; Jesse-Surface-Pro ; Windows 8 ; 6.2        ; x86_64         ;
+; TimeQuest Timing Analyzer ; Jesse-Surface-Pro ; Windows 8 ; 6.2        ; x86_64         ;
+; Design Assistant          ; Jesse-Surface-Pro ; Windows 8 ; 6.2        ; x86_64         ;
++---------------------------+-------------------+-----------+------------+----------------+
 
 
 ------------
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off Project -c Project
+quartus_fit --read_settings_files=on --write_settings_files=off Project -c Project
+quartus_asm --read_settings_files=off --write_settings_files=off Project -c Project
+quartus_sta Project -c Project
+quartus_drc --read_settings_files=off --write_settings_files=off Project -c Project
 
 
 
